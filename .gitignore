@@ -36,4 +36,4 @@ out/
 .classpath
 *.project
 .project
-
+bin
