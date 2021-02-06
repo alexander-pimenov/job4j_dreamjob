@@ -37,3 +37,4 @@ out/
 *.project
 .project
 bin
+bin/
