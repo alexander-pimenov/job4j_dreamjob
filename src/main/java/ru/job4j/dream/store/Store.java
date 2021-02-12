@@ -58,9 +58,9 @@ public class Store {
 
     /*Метод добавления в хранилище кандидатов.*/
     public void saveCandidate(Candidate candidate) {
-//        if (candidate.getId() == 0) {
+        if (candidate.getId() == 0) {
             candidate.setId(CANDIDATE_ID.incrementAndGet());
-//        }
+        }
         candidates.put(candidate.getId(), candidate);
     }
 
