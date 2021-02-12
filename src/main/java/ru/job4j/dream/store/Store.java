@@ -18,6 +18,7 @@ public class Store {
 
     //ключ для генерации ID
     private static AtomicInteger POST_ID = new AtomicInteger(4);
+    private static AtomicInteger CANDIDATE_ID = new AtomicInteger(4);
 
     private Store() {
         posts.put(1, new Post(1, "Junior Java Job", "Some description"));
@@ -42,9 +43,15 @@ public class Store {
         return candidates.values();
     }
 
-    /*Метод добавления в хранилище вакансий*/
+    /*Метод добавления в хранилище вакансий.*/
     public void save(Post post){
         post.setId(POST_ID.incrementAndGet());
         posts.put(post.getId(), post);
+    }
+
+    /*Метод добавления в хранилище кандидатов.*/
+    public void saveCandidate(Candidate candidate){
+        candidate.setId(CANDIDATE_ID.incrementAndGet());
+        candidates.put(candidate.getId(), candidate);
     }
 }
