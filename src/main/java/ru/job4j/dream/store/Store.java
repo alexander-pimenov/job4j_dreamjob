@@ -44,14 +44,28 @@ public class Store {
     }
 
     /*Метод добавления в хранилище вакансий.*/
-    public void save(Post post){
-        post.setId(POST_ID.incrementAndGet());
+    public void save(Post post) {
+        if (post.getId() == 0) {
+            post.setId(POST_ID.incrementAndGet());
+        }
         posts.put(post.getId(), post);
     }
 
+    /*Поиск вакансии по Id*/
+    public Post findById(int id) {
+        return posts.get(id);
+    }
+
     /*Метод добавления в хранилище кандидатов.*/
-    public void saveCandidate(Candidate candidate){
-        candidate.setId(CANDIDATE_ID.incrementAndGet());
+    public void saveCandidate(Candidate candidate) {
+//        if (candidate.getId() == 0) {
+            candidate.setId(CANDIDATE_ID.incrementAndGet());
+//        }
         candidates.put(candidate.getId(), candidate);
+    }
+
+    /*Поиск кандидата по Id*/
+    public Candidate findCandidateById(int id) {
+        return candidates.get(id);
     }
 }
