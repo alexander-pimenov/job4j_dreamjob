@@ -24,6 +24,8 @@
         <log4j.version>2.14.0</log4j.version>
         <slf4j.version>1.7.30</slf4j.version>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <checkstyle.maven.plugin.version>3.0.0</checkstyle.maven.plugin.version>
+
     </properties>
 
     <!-- Секция зависимостей -->
@@ -72,7 +74,8 @@
             <version>42.2.14</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
-        <!-- Библиотека нужна, чтобы получить информацию о расположении сервера. -->
+        <!-- Библиотека нужна, чтобы получить информацию о расположении сервера,-->
+        <!-- которая позволит нам использовать Servlet-ы.-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -80,7 +83,7 @@
             <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
-        <!--Библиотека позволяющая делать действия с периодичностью-->
+        <!--Библиотека позволяющая делать действия с периодичностью -->
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
@@ -100,7 +103,7 @@
     </dependencies>
 
     <!-- Секция сборки -->
-    <!-- Для запуска tomcat используй команду: mvn tomcat:run -->
+    <!-- Для запуска tomcat можно использовать команду: mvn tomcat:run -->
 
     <build>
         <!--        <finalName>job4j_dreamjob</finalName>-->
@@ -158,7 +161,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>${checkstyle.maven.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>validate</id>

@@ -22,8 +22,3 @@ public class CandidateServlet extends HttpServlet {
         resp.sendRedirect(req.getContextPath() + "/candidate/candidates.jsp");
     }
 }
-
-//@Override
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        request.getRequestDispatcher("/test.jsp").forward(request, response);
-//    }
