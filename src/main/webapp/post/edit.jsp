@@ -23,7 +23,7 @@
 <body>
 <%
     String id = request.getParameter("id");
-    Post post = new Post(0, "");
+    Post post = new Post(0, "", "");
     if (id != null) {
         post = Store.instOf().findById(Integer.valueOf(id));
     }
@@ -44,6 +44,10 @@
                     <div class="form-group">
                         <label>Имя</label>
                         <input type="text" class="form-control" name="name" value="<%=post.getName() %>">
+                    </div>
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <input type="text" class="form-control" name="description" value="<%=post.getDescription() %>">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>

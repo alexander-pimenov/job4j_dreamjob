@@ -15,10 +15,12 @@ public class PostServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String id = req.getParameter("id");
         String name = req.getParameter("name");
+        String description = req.getParameter("description");
         Store.instOf().save(
                 new Post(
                         Integer.parseInt(id),
-                        name));
+                        name,
+                        description));
         resp.sendRedirect(req.getContextPath() + "/post/posts.jsp");
     }
 }

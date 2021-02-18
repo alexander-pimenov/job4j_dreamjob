@@ -17,13 +17,13 @@ public class Store {
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
     //ключ для генерации ID
-    private static AtomicInteger POST_ID = new AtomicInteger(4);
-    private static AtomicInteger CANDIDATE_ID = new AtomicInteger(4);
+    private static AtomicInteger postId = new AtomicInteger(4);
+    private static AtomicInteger candidateId = new AtomicInteger(4);
 
     private Store() {
-        posts.put(1, new Post(1, "Junior Java Job", "Some description"));
-        posts.put(2, new Post(2, "Middle Java Job", "Some description"));
-        posts.put(3, new Post(3, "Senior Java Job", "Some description"));
+        posts.put(1, new Post(1, "Junior Java Job", "Some description about Junior Java"));
+        posts.put(2, new Post(2, "Middle Java Job", "Some description about Middle Java"));
+        posts.put(3, new Post(3, "Senior Java Job", "Some description about Senior Java"));
         candidates.put(1, new Candidate(1, "Junior Java"));
         candidates.put(2, new Candidate(2, "Middle Java"));
         candidates.put(3, new Candidate(3, "Senior Java"));
@@ -46,9 +46,15 @@ public class Store {
     /*Метод добавления в хранилище вакансий.*/
     public void save(Post post) {
         if (post.getId() == 0) {
-            post.setId(POST_ID.incrementAndGet());
+            post.setId(postId.incrementAndGet());
         }
+//        System.out.println("Вакансия: " + post);
+//        System.out.println("Вакансия Id: " + post.getId());
+//        System.out.println("Вакансия Name: " + post.getName());
+//        System.out.println("Вакансия Description: " + post.getDescription());
+
         posts.put(post.getId(), post);
+
     }
 
     /*Поиск вакансии по Id*/
@@ -59,7 +65,7 @@ public class Store {
     /*Метод добавления в хранилище кандидатов.*/
     public void saveCandidate(Candidate candidate) {
         if (candidate.getId() == 0) {
-            candidate.setId(CANDIDATE_ID.incrementAndGet());
+            candidate.setId(candidateId.incrementAndGet());
         }
         candidates.put(candidate.getId(), candidate);
     }
