@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" language="java" %>
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
 <!doctype html>
@@ -25,7 +25,7 @@
     String id = request.getParameter("id");
     Post post = new Post(0, "", "");
     if (id != null) {
-        post = Store.instOf().findById(Integer.valueOf(id));
+        post = Store.instOf().findById(Integer.parseInt(id));
     }
 %>
 
@@ -40,7 +40,7 @@
             <% } %>
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/post/save?id=<%=post.getId() %>" method="post">
+                <form action="<%=request.getContextPath()%>/posts.do?id=<%=post.getId() %>" method="post">
                     <div class="form-group">
                         <label>Имя</label>
                         <input type="text" class="form-control" name="name" value="<%=post.getName() %>">

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" language="java" %>
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
 <!doctype html>
@@ -25,7 +25,7 @@
     <div class="row">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/post/posts.jsp">Вакансии</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/candidate/candidates.jsp">Кандидаты</a>

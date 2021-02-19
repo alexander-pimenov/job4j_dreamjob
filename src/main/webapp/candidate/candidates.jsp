@@ -38,11 +38,13 @@
                     </thead>
                     <tbody>
                         <% for (Candidate can : Store.instOf().findAllCandidates()) { %>
+                        <%-- for (Candidate can : (Collection<Candidate>) request.getAttribute("candidates")) { --%>
                         <tr>
                             <td>
                             <a href="<%=request.getContextPath()%>/candidate/edit.jsp?id=<%=can.getId()%>">
                                       <i class="fa fa-edit mr-3"></i></a>
-                            <%= can.getName() %></td>
+                            <%= can.getName() %>
+                            </td>
                     </tr>
                     <% } %>
                     </tbody>
