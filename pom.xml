@@ -99,6 +99,7 @@
 <!--        </dependency>-->
 
         <!-- Java Standard Tag Library (JSTL) -->
+        <!-- Библиотека тегов JSTL. -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>

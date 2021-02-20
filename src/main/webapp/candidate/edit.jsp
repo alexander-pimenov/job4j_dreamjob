@@ -1,4 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
 <!doctype html>
@@ -25,7 +27,7 @@
     String id = request.getParameter("id");
     Candidate candidate = new Candidate(0, "");
     if (id != null) {
-        candidate = Store.instOf().findCandidateById(Integer.valueOf(id));
+        candidate = Store.instOf().findCandidateById(Integer.parseInt(id));
     }
 %>
 <div class="container pt-3">
@@ -39,7 +41,7 @@
             <% } %>
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/candidate/save?id=<%=candidate.getId() %>" method="post">
+                <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId() %>" method="post">
                     <div class="form-group">
                         <label>Имя</label>
                         <input type="text" class="form-control" name="name" value="<%=candidate.getName() %>">

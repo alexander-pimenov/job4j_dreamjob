@@ -35,12 +35,12 @@ public class Store {
 
     /*Метод поиска всех вакансий в хранилище.*/
     public Collection<Post> findAllPosts() {
-        return posts.values();
+        return this.posts.values();
     }
 
     /*Метод поиска всех кандидатов в хранилище.*/
     public Collection<Candidate> findAllCandidates() {
-        return candidates.values();
+        return this.candidates.values();
     }
 
     /*Метод добавления в хранилище вакансий.*/
@@ -48,10 +48,10 @@ public class Store {
         if (post.getId() == 0) {
             post.setId(postId.incrementAndGet());
         }
-        System.out.println("Вакансия: " + post);
-        System.out.println("Вакансия Id: " + post.getId());
-        System.out.println("Вакансия Name: " + post.getName());
-        System.out.println("Вакансия Description: " + post.getDescription());
+//        System.out.println("Вакансия: " + post);
+//        System.out.println("Вакансия Id: " + post.getId());
+//        System.out.println("Вакансия Name: " + post.getName());
+//        System.out.println("Вакансия Description: " + post.getDescription());
 
         posts.put(post.getId(), post);
 
@@ -67,9 +67,9 @@ public class Store {
         if (candidate.getId() == 0) {
             candidate.setId(candidateId.incrementAndGet());
         }
-        System.out.println("Кандидат: " + candidate);
-        System.out.println("Кандидат Id: " + candidate.getId());
-        System.out.println("Кандидат Name: " + candidate.getName());
+//        System.out.println("Кандидат: " + candidate);
+//        System.out.println("Кандидат Id: " + candidate.getId());
+//        System.out.println("Кандидат Name: " + candidate.getName());
 
         candidates.put(candidate.getId(), candidate);
     }
