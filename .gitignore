@@ -38,3 +38,5 @@ out/
 .project
 bin
 bin/
+logging
+logging/

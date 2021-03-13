@@ -1,6 +1,8 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class PsqlStore implements Store {
+    private static final Logger LOG = LoggerFactory.getLogger(PsqlStore.class.getName());
     private final BasicDataSource pool = new BasicDataSource();
 
     private PsqlStore() {
@@ -71,7 +74,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e); //удобно искать ошибку в логе
         }
         return posts;
     }
@@ -91,7 +94,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e); //удобно искать ошибку в логе
         }
         return candidates;
     }
@@ -110,10 +113,11 @@ public class PsqlStore implements Store {
     private Post create(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
-                     "INSERT INTO post(name) VALUES (?)",
+                     "INSERT INTO post(name, description) VALUES (?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
-            ps.setString(1, post.getName()); //заполняем знак ?
+            ps.setString(1, post.getName()); //заполняем знак 1-й ?
+            ps.setString(2, post.getDescription()); //заполняем знак 2-й ?
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -121,7 +125,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e); //удобно искать ошибку в логе
         }
         return post;
     }
@@ -139,7 +143,7 @@ public class PsqlStore implements Store {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e); //удобно искать ошибку в логе
         }
         return post;
     }
@@ -167,7 +171,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e); //удобно искать ошибку в логе
         }
         return candidate;
     }
@@ -181,7 +185,7 @@ public class PsqlStore implements Store {
             ps.setInt(2, candidate.getId()); //заполняем 2-й знак ?
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e); //удобно искать ошибку в логе
         }
         return candidate;
     }
@@ -204,7 +208,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e); //удобно искать ошибку в логе
         }
         return post;
     }
@@ -215,7 +219,7 @@ public class PsqlStore implements Store {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidate WHERE id = ?")
         ) {
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     candidate = new Candidate(
@@ -225,7 +229,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e); //удобно искать ошибку в логе
         }
         return candidate;
     }

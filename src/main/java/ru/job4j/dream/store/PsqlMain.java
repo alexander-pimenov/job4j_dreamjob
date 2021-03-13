@@ -12,7 +12,7 @@ public class PsqlMain {
         store.save(new Post(0, "Middle Java Job", "Description for Middle"));
 
         for (Post post : store.findAllPosts()) {
-            System.out.println(post.getId() + " " + post.getName());
+            System.out.println(post.getId() + " " + post.getName() + " " + post.getDescription());
         }
         System.out.println("==========");
 
@@ -37,7 +37,7 @@ public class PsqlMain {
         System.out.println("==========");
 
         // saveCandidate()-update
-        Candidate candidate = new Candidate(2, "Intern Java");
+        Candidate candidate = new Candidate(20, "Intern Java");
         store.saveCandidate(candidate);
 
         store.findAllCandidates().forEach(System.out::println);
