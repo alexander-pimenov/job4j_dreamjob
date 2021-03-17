@@ -60,7 +60,7 @@ public class PsqlStore implements Store {
     @Override
     public Collection<Post> findAllPosts() {
         List<Post> posts = new ArrayList<>();
-        try (Connection cn = pool.getConnection();
+        try (Connection cn = pool.getConnection(); //соединяемся с пулом
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM post")
         ) {
             try (ResultSet rs = ps.executeQuery()) {
@@ -101,16 +101,16 @@ public class PsqlStore implements Store {
 
     /*Сохранение новой вакансии или ее обновление*/
     @Override
-    public void save(Post post) {
+    public void savePost(Post post) {
         if (post.getId() == 0) {
-            create(post);
+            createPost(post);
         } else {
-            update(post);
+            updatePost(post);
         }
     }
 
     /*Создание вакансии*/
-    private Post create(Post post) {
+    private Post createPost(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "INSERT INTO post(name, description) VALUES (?, ?)",
@@ -131,7 +131,7 @@ public class PsqlStore implements Store {
     }
 
     /*Обновление вакансии*/
-    private Post update(Post post) {
+    private Post updatePost(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "UPDATE post SET name = ?, description = ? WHERE id = ?")
@@ -149,6 +149,7 @@ public class PsqlStore implements Store {
     }
 
     /*Метод добавления в хранилище кандидатов.*/
+    @Override
     public void saveCandidate(Candidate candidate) {
         if (candidate.getId() == 0) {
             createCandidate(candidate);
@@ -156,6 +157,7 @@ public class PsqlStore implements Store {
             updateCandidate(candidate);
         }
     }
+
 
     private Candidate createCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
@@ -192,7 +194,7 @@ public class PsqlStore implements Store {
 
     /*Поиск вакансии по Id*/
     @Override
-    public Post findById(int id) {
+    public Post findPostById(int id) {
         Post post = new Post(0, "", "");
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM post WHERE id = ?")
@@ -214,6 +216,7 @@ public class PsqlStore implements Store {
     }
 
     /*Поиск кандидата по Id*/
+    @Override
     public Candidate findCandidateById(int id) {
         Candidate candidate = new Candidate(0, "");
         try (Connection cn = pool.getConnection();

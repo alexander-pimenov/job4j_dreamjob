@@ -8,8 +8,8 @@ public class PsqlMain {
         // Post
         // save()-create and findAllPosts()
         PsqlStore store = (PsqlStore) PsqlStore.instOf();
-        store.save(new Post(0, "Junior Java Job", "Description for Junior"));
-        store.save(new Post(0, "Middle Java Job", "Description for Middle"));
+        store.savePost(new Post(0, "Junior Java Job", "Description for Junior"));
+        store.savePost(new Post(0, "Middle Java Job", "Description for Middle"));
 
         for (Post post : store.findAllPosts()) {
             System.out.println(post.getId() + " " + post.getName() + " " + post.getDescription());
@@ -18,13 +18,13 @@ public class PsqlMain {
 
         // save()-update
         Post post = new Post(2, "Senior Java Job", "Advanced level");
-        store.save(post);
+        store.savePost(post);
 
         store.findAllPosts().forEach(System.out::println);
         System.out.println("==========");
 
         // findById()
-        final Post postById = store.findById(6);
+        final Post postById = store.findPostById(6);
         System.out.println(postById);
         System.out.println("==========");
 

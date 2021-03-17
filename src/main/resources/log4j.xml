@@ -13,7 +13,7 @@
     </appender>
     <appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="10MB"/>
-        <param name="maxBackupIndex" value="2"/>
+        <param name="maxBackupIndex" value="10"/>
         <param name="file" value="logging/psqlstore_log.txt"/>
         <param name="immediateFlush" value="true"/>
         <!--        <param name="threshold" value="trace"/>-->
@@ -50,7 +50,7 @@
     <!--    </category>-->
 
     <logger name="ru.job4j.dream.store.PsqlStore" additivity="false">
-        <!-- уровень: all, trace, debug, info, warn, error, fatal-->
+        <!-- уровень: all, trace, debug, info, warn, error, fatal, off(выключено)-->
         <level value="error"/>
         <appender-ref ref="fileAppender"/>
         <appender-ref ref="console"/>
@@ -65,6 +65,7 @@
     <root>
         <priority value="trace"/>
         <appender-ref ref="console"/>
+        <appender-ref ref="fileAppender"/>
     </root>
 
 </log4j:configuration>
@@ -78,7 +79,9 @@
         # %-5p - уровень сообщения, приоритет. 5 символов. Выравнивание влево.
         # %-t - имя потока. Выравнивание влево.
         # %c - категория. Класс.
+        # %m — само сообщение
         # %c:%M:%L - класс, метод, строчка.
+        # %n — перевод строки
         # %m%n - текс сообщения (%m - сообщение после, которого идет перенос строки %n).
         # [ ] - квадратные скобки улучшают читабельность.
         log4j.appender.console.layout=org.apache.log4j.PatternLayout

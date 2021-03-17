@@ -2,6 +2,8 @@ package ru.job4j.dream.servlet;
 
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.store.MemStore;
+import ru.job4j.dream.store.PsqlStore;
+import ru.job4j.dream.store.Store;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +20,8 @@ public class CandidateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
-        MemStore store = MemStore.instOf();
+        Store store = PsqlStore.instOf();
+//        MemStore store = MemStore.instOf();
         Collection<Candidate> allCandidates = store.findAllCandidates();
         req.setAttribute("candidates", allCandidates);
         req.getRequestDispatcher("candidate/candidates.jsp").forward(req, resp);
@@ -30,7 +33,9 @@ public class CandidateServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         String id = req.getParameter("id");
         String name = req.getParameter("name");
-        MemStore.instOf().saveCandidate(
+//        MemStore store = MemStore.instOf();
+        Store store = PsqlStore.instOf();
+        store.saveCandidate(
                 new Candidate(
                         Integer.parseInt(id),
                         name));

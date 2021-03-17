@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /*
  * Класс Store - хранилище вакансий.
  */
-public class MemStore {
+public class MemStore implements Store {
     private static final MemStore INST = new MemStore();
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
@@ -34,17 +34,20 @@ public class MemStore {
     }
 
     /*Метод поиска всех вакансий в хранилище.*/
+    @Override
     public Collection<Post> findAllPosts() {
         return this.posts.values();
     }
 
     /*Метод поиска всех кандидатов в хранилище.*/
+    @Override
     public Collection<Candidate> findAllCandidates() {
         return this.candidates.values();
     }
 
     /*Метод добавления в хранилище вакансий.*/
-    public void save(Post post) {
+    @Override
+    public void savePost(Post post) {
         if (post.getId() == 0) {
             post.setId(postId.incrementAndGet());
         }
@@ -58,11 +61,13 @@ public class MemStore {
     }
 
     /*Поиск вакансии по Id*/
-    public Post findById(int id) {
+    @Override
+    public Post findPostById(int id) {
         return posts.get(id);
     }
 
     /*Метод добавления в хранилище кандидатов.*/
+    @Override
     public void saveCandidate(Candidate candidate) {
         if (candidate.getId() == 0) {
             candidate.setId(candidateId.incrementAndGet());
@@ -75,6 +80,7 @@ public class MemStore {
     }
 
     /*Поиск кандидата по Id*/
+    @Override
     public Candidate findCandidateById(int id) {
         return candidates.get(id);
     }
