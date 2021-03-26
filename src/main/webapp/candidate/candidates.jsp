@@ -21,7 +21,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <title>Работа мечты</title>
 </head>
@@ -53,6 +57,10 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+
+        <div>
+        <button type="button" class="btn btn-primary btn-lg" onclick="location.href='/dreamjob'">Back to main page</button>
         </div>
     </div>
 </div>
