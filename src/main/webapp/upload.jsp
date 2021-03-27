@@ -25,7 +25,12 @@
             <tr valign="top">
                 <td><a href="<c:url value='/download?name=${image}'/>">Download</a></td>
                 <td>
-                    <img src="<c:url value='/download?name=${image}'/>" width="100px" height="100px"/>
+                    <a href="<c:url value='/download?name=${image}'/>">
+                        <img src="<c:url value='/download?name=${image}'/>" width="100px" height="100px"/>
+                    </a>
+                </td>
+                <td>
+                    <img src="<c:url value='/download?name=${image}'/>"  width="100px" height="100px"/>
                 </td>
             </tr>
         </c:forEach>

@@ -16,17 +16,24 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+/*
+* Класс, обрабатывающий загрузку файла на сервер.
+* */
 public class UploadServlet extends HttpServlet {
 
     /*Метод doGet отображает список доступных файлов*/
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> images = new ArrayList<>();
-        for (File name : new File("c:\\images\\").listFiles()) {
+        for (File name : Objects.requireNonNull(new File("c:\\images\\").listFiles())) {
             System.out.println(name.getAbsolutePath());
-            images.add(name.getName());
+            if (!name.isDirectory()){
+                images.add(name.getName());
+            }
         }
+
         req.setAttribute("images", images);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/upload.jsp");
         dispatcher.forward(req, resp);
@@ -35,6 +42,8 @@ public class UploadServlet extends HttpServlet {
     /*Метод doPost загружает выбранный файл на сервер в папку c:\\images\\*/
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //Создаем фабрику, по которой можем понять, какие данные есть в запросе.
+        //Данные могу быть: поля или файлы.
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletContext servletContext = this.getServletConfig().getServletContext();
         File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
@@ -48,6 +57,7 @@ public class UploadServlet extends HttpServlet {
                 folder.mkdir();
             }
             for (FileItem item : items) {
+                //Элемент является полем?:
                 if (!item.isFormField()) {
                     /*Если элемент не поле, то это файл и из него можно прочитать весь входной поток
                     и записать его в файл или напрямую в базу данных.*/
@@ -60,6 +70,7 @@ public class UploadServlet extends HttpServlet {
         } catch (FileUploadException e) {
             e.printStackTrace();
         }
+        //переходим в метод doGet()
         doGet(req, resp);
     }
 }
