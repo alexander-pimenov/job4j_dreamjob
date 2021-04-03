@@ -51,8 +51,12 @@
                         <input type="text" class="form-control" name="description" value="<%=post.getDescription() %>">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="reset" class="btn btn-secondary">Reset</button>
                 </form>
             </div>
+        </div>
+        <div>
+              <button type="button" class="btn btn-info" onclick="location.href='/dreamjob'">Back to main page</button>
         </div>
     </div>
 </div>

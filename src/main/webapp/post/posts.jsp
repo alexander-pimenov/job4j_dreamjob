@@ -62,7 +62,7 @@
         </div>
 
         <div>
-            <button type="button" class="btn btn-primary btn-lg" onclick="location.href='/dreamjob'">Back to main page</button>
+            <button type="button" class="btn btn-info" onclick="location.href='/dreamjob'">Back to main page</button>
         </div>
     </div>
 </div>
