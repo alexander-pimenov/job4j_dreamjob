@@ -4,6 +4,7 @@
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.store.PsqlStore" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
+<%@ page import="java.util.Optional" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -26,8 +27,9 @@
 <body>
 <%
     String id = request.getParameter("id");
-    Candidate candidate = new Candidate(0, "");
+    Candidate candidate = new Candidate(0, "", 0);
     if (id != null) {
+
         candidate = PsqlStore.instOf().findCandidateById(Integer.parseInt(id));
     }
 %>
@@ -46,6 +48,10 @@
                     <div class="form-group">
                         <label>Имя</label>
                         <input type="text" class="form-control" name="name" value="<%=candidate.getName() %>">
+                    </div>
+                    <div class="form-group">
+                         <label>Добавить фото кандидата</label>
+                         <input type="file" class="btn btn-default" name="photoId" accept="image/jpeg,image/png" value="<%=candidate.getPhotoId() %>">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                     <button type="reset" class="btn btn-secondary">Reset</button>

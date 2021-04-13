@@ -11,6 +11,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Иконки Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -41,6 +45,7 @@
                     <thead>
                     <tr>
                         <th scope="col">Названия</th>
+                        <th scope="col">Фото</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -48,9 +53,19 @@
                         <tr>
                             <td>
                                 <a href='<c:url value="/candidate/edit.jsp?id=${candidate.id}" />'>
-                                    <i class="fa fa-edit mr-3"></i>
+                                    <i class="fa fa-edit mr-3" style="color:blue;" title="Редактировать"></i>
+                                </a>
+                                <a href='<c:url value="/candidate/edit.jsp?id=${candidate.id}" />'>
+                                    <i class="fas fa-trash-alt mr-3" style="color:red;" title="Удалить"></i>
                                 </a>
                                 <c:out value="${candidate.name}" />
+                            </td>
+                            <td>
+                                <a href="<c:url value='/download?name=${candidate.photoId}'/>">
+                                    <img src="<c:url value='/download?name=${candidate.photoId}'/>" width="100px" height="100px"/>
+                                </a><br>
+                                <a href="<c:url value='/download?name=${candidate.photoId}'/>">Download</a><br>
+                                <c:out value="${candidate.id}" />
                             </td>
                         </tr>
                     </c:forEach>

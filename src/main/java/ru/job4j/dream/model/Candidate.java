@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Candidate {
     private int id;
     private String name;
-    private Photo photo;
+    private Integer photoId;
 
     public Candidate() {
     }
@@ -18,13 +18,21 @@ public class Candidate {
         this.name = name;
     }
 
-    public Photo getPhoto() {
-        return photo;
+    public Candidate(int id, String name, Integer photoId) {
+        this.id = id;
+        this.name = name;
+        this.photoId = photoId;
     }
 
-    public void setPhoto(Photo photo) {
-        this.photo = photo;
+    public Integer getPhotoId() {
+        return photoId;
     }
+
+    public void setPhotoId(Integer photoId) {
+        this.photoId = photoId;
+    }
+
+
 
     public int getId() {
         return id;

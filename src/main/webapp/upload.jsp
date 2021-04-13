@@ -43,6 +43,10 @@
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
+    <br/>
+    <div>
+        <button type="button" class="btn btn-info" onclick="location.href='/dreamjob'">Back to main page</button>
+    </div>
 </div>
 
 </body>

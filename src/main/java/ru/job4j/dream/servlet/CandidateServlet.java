@@ -31,14 +31,14 @@ public class CandidateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
-        String id = req.getParameter("id");
+        int id = Integer.parseInt(req.getParameter("id"));
+
         String name = req.getParameter("name");
 //        MemStore store = MemStore.instOf();
+
+        Candidate candidate = new Candidate(id, name);
         Store store = PsqlStore.instOf();
-        store.saveCandidate(
-                new Candidate(
-                        Integer.parseInt(id),
-                        name));
+        store.saveCandidate(candidate);
         resp.sendRedirect(req.getContextPath() + "/candidates.do");
     }
 }
