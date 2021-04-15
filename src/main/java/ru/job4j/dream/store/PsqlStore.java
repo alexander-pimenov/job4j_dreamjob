@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -235,6 +236,18 @@ public class PsqlStore implements Store {
             LOG.error(e.getMessage(), e); //удобно искать ошибку в логе
         }
         return candidate;
+    }
+
+    @Override
+    public void delete(int id) {
+        String delete = "DELETE FROM candidate WHERE id = ?";
+        try (Connection cn = pool.getConnection()) {
+            PreparedStatement ps = cn.prepareStatement(delete);
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e); //удобно искать ошибку в логе
+        }
     }
 }
 

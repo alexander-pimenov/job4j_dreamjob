@@ -55,7 +55,7 @@
                                 <a href='<c:url value="/candidate/edit.jsp?id=${candidate.id}" />'>
                                     <i class="fa fa-edit mr-3" style="color:blue;" title="Редактировать"></i>
                                 </a>
-                                <a href='<c:url value="/candidate/edit.jsp?id=${candidate.id}" />'>
+                                <a href='<c:url value="/delete?id=${candidate.id}" />'>
                                     <i class="fas fa-trash-alt mr-3" style="color:red;" title="Удалить"></i>
                                 </a>
                                 <c:out value="${candidate.name}" />

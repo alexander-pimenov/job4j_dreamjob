@@ -18,6 +18,8 @@ public class CandidateServlet extends HttpServlet {
      * и загрузим в request список кандидатов*/
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("Сервлет CandidateServlet метод doGet()");
+
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
         Store store = PsqlStore.instOf();
@@ -29,6 +31,8 @@ public class CandidateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("Сервлет CandidateServlet метод doPost()");
+
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
         int id = Integer.parseInt(req.getParameter("id"));

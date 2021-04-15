@@ -51,7 +51,7 @@
                     </div>
                     <div class="form-group">
                          <label>Добавить фото кандидата</label>
-                         <input type="file" class="btn btn-default" name="photoId" accept="image/jpeg,image/png" value="<%=candidate.getPhotoId() %>">
+                         <input type="file" class="btn btn-default" name="photoId" accept="image/jpeg,image/png" value="<%=candidate.getId() %>">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                     <button type="reset" class="btn btn-secondary">Reset</button>

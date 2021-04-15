@@ -21,7 +21,7 @@ import java.util.Objects;
 /*
 * Класс, обрабатывающий загрузку файла на сервер.
 * */
-public class UploadServlet extends HttpServlet {
+public class UploadSomethingServlet extends HttpServlet {
 
     /*Метод doGet отображает список доступных файлов*/
     @Override
@@ -53,7 +53,7 @@ public class UploadServlet extends HttpServlet {
         factory.setRepository(repository);
         ServletFileUpload upload = new ServletFileUpload(factory);
         try {
-            //Получаем список всех данных в запросе, парсит request чтобы взять FileItem
+            //Получаем список всех данных в запросе
             List<FileItem> items = upload.parseRequest(req);
             File folder = new File("c:\\images\\");
             if (!folder.exists()) {
@@ -64,11 +64,7 @@ public class UploadServlet extends HttpServlet {
                 if (!item.isFormField()) {
                     /*Если элемент не поле, то это файл и из него можно прочитать весь входной поток
                     и записать его в файл или напрямую в базу данных.*/
-                    //сохраняет файл на сервере в папке c:/images
-                    File file = new File(folder + File.separator
-                            //+req.getParameter("id")
-                            //+ "."
-                            + item.getName());
+                    File file = new File(folder + File.separator + item.getName());
                     try (FileOutputStream out = new FileOutputStream(file)) {
                         out.write(item.getInputStream().readAllBytes());
                     }

@@ -4,14 +4,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 /*
  * Класс производящий скачивание файла.
  * */
-public class DownloadServlet extends HttpServlet {
+public class DownloadSomethingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Сервлет DownloadServlet метод doGet()");
