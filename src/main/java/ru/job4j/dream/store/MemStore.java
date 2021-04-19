@@ -57,7 +57,6 @@ public class MemStore implements Store {
 //        System.out.println("Вакансия Description: " + post.getDescription());
 
         posts.put(post.getId(), post);
-
     }
 
     /*Поиск вакансии по Id*/
@@ -68,7 +67,7 @@ public class MemStore implements Store {
 
     /*Метод добавления в хранилище кандидатов.*/
     @Override
-    public void saveCandidate(Candidate candidate) {
+    public Candidate saveCandidate(Candidate candidate) {
         if (candidate.getId() == 0) {
             candidate.setId(candidateId.incrementAndGet());
         }
@@ -77,6 +76,7 @@ public class MemStore implements Store {
 //        System.out.println("Кандидат Name: " + candidate.getName());
 
         candidates.put(candidate.getId(), candidate);
+        return candidates.get(candidate.getId());
     }
 
     /*Поиск кандидата по Id*/
@@ -86,7 +86,12 @@ public class MemStore implements Store {
     }
 
     @Override
-    public void delete(int id) {
+    public void deleteCandidate(int id) {
         candidates.remove(id);
+    }
+
+    @Override
+    public void savePhoto(int photoId) {
+        System.out.println("Метод не реализован");
     }
 }

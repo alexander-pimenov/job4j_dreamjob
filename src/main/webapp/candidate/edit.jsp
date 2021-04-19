@@ -44,17 +44,18 @@
             <% } %>
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId() %>" method="post">
+                <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId() %>" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" class="form-control" name="name" value="<%=candidate.getName() %>">
+                        <input type="text" class="form-control" name="name" value="<%=candidate.getName() %>" required >
                     </div>
                     <div class="form-group">
                          <label>Добавить фото кандидата</label>
-                         <input type="file" class="btn btn-default" name="photoId" accept="image/jpeg,image/png" value="<%=candidate.getId() %>">
+                         <input type="file" class="btn btn-default" name="photoId" value="<%=candidate.getPhotoId() %>" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                     <button type="reset" class="btn btn-secondary">Reset</button>
+                    <a class="btn btn-info" href="<%=request.getContextPath()%>/candidates.do" role="button">Отмена</a>
                 </form>
             </div>
         </div>

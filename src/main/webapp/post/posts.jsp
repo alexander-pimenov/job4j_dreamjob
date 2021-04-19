@@ -47,7 +47,7 @@
                         <tr>
                             <td>
                                 <a href='<c:url value="/post/edit.jsp?id=${post.id}"/>'>
-                                    <i class="fa fa-edit mr-3"></i>
+                                    <i class="fa fa-edit mr-3" style="color:blue;" title="Редактировать"></i>
                                 </a>
                                 <c:out value="${post.name}"/>
                             </td>

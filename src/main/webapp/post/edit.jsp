@@ -44,14 +44,15 @@
                 <form action="<%=request.getContextPath()%>/posts.do?id=<%=post.getId() %>" method="post">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" class="form-control" name="name" value="<%=post.getName() %>">
+                        <input type="text" class="form-control" name="name" value="<%=post.getName() %>" required >
                     </div>
                     <div class="form-group">
                         <label>Описание</label>
-                        <input type="text" class="form-control" name="description" value="<%=post.getDescription() %>">
+                        <input type="text" class="form-control" name="description" value="<%=post.getDescription() %>" required >
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                     <button type="reset" class="btn btn-secondary">Reset</button>
+                    <a class="btn btn-info" href="<%=request.getContextPath()%>/posts.do" role="button">Отмена</a>
                 </form>
             </div>
         </div>

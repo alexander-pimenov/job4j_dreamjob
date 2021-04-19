@@ -23,15 +23,15 @@
         <tbody>
         <c:forEach items="${images}" var="image" varStatus="status">
             <tr valign="top">
-                <td><a href="<c:url value='/download?name=${image}'/>">Download</a></td>
+                <td><a href="<c:url value='/download?photoId=${image}'/>">Download</a></td>
                 <td>
-                    <a href="<c:url value='/download?name=${image}'/>">
-                        <img src="<c:url value='/download?name=${image}'/>" width="100px" height="100px"/>
+                    <a href="<c:url value='/download?photoId=${image}'/>">
+                        <img src="<c:url value='/download?photoId=${image}'/>" width="100px" height="100px"/>
                     </a><br>
                     <c:out value="${image}" />
                 </td>
                 <td>
-                    <img src="<c:url value='/download?name=${image}'/>"  width="100px" height="100px"/>
+                    <img src="<c:url value='/download?photoId=${image}'/>"  width="100px" height="100px"/>
 
                 </td>
             </tr>
@@ -43,7 +43,7 @@
         <div class="checkbox">
             <input type="file" name="file">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">Upload</button>
     </form>
     <br/>
     <div>

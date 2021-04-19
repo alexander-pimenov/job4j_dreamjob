@@ -13,11 +13,13 @@ public interface Store<T> {
 
     void savePost(Post post);
 
-    void saveCandidate(Candidate candidate);
+    Candidate saveCandidate(Candidate candidate);
 
     Post findPostById(int id);
 
     Candidate findCandidateById(int id);
 
-    void delete(int id);
+    void deleteCandidate(int id);
+
+    void savePhoto(int photoId);
 }
