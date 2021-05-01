@@ -4,9 +4,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import ru.job4j.dream.model.Candidate;
-import ru.job4j.dream.store.PsqlStore;
-import ru.job4j.dream.store.Store;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -22,14 +19,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/*
+/**
  * Класс, обрабатывающий загрузку файла на сервер.
  * Вспомогательный класс, для информации.
  * пока не используется.
- * */
+ */
 public class UploadSomethingServlet extends HttpServlet {
 
-    /*Метод doGet отображает список доступных файлов*/
+    /**
+     * Метод doGet отображает список доступных файлов.
+     * Все файлы папки c:/images собираются в список, и передаются через
+     * атрибут images клиенту в браузер. Где выводятся списком.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Сервлет UploadServlet метод doGet()");
@@ -40,20 +41,28 @@ public class UploadSomethingServlet extends HttpServlet {
                 images.add(name.getName());
             }
         }
-
         req.setAttribute("images", images);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/upload.jsp");
         dispatcher.forward(req, resp);
     }
 
-    /*Метод doPost загружает выбранный файл на сервер в папку c:\\images\\*/
+    /**
+     * Метод doPost загружает выбранный файл на сервер в папку c:\\images\\
+     * Создает фабрику DiskFileItemFactory, по которой можем понять, какие
+     * данные есть в запросе.
+     * Данные могу быть полями или файлами.
+     * Получает список всех данных в запросе, парсит request, чтобы взять
+     * FileItem. Если не является полем, то это файл и из него можно прочитать
+     * весь входной поток и записать его в файл или напрямую в базу данных.
+     * Если FileItem поле, то у него можем спросить имя getFileName() и получить
+     * его значение getString().
+     * В конце метода переходит в метод doGet().
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Сервлет UploadServlet метод doPost()");
         String name = "";
 
-        //Создаем фабрику, по которой можем понять, какие данные есть в запросе.
-        //Данные могу быть: поля или файлы.
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletContext servletContext = this.getServletConfig().getServletContext();
         File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
@@ -67,16 +76,13 @@ public class UploadSomethingServlet extends HttpServlet {
                 folder.mkdir();
             }
             for (FileItem item : items) {
-                //Элемент является полем?:
                 if (!item.isFormField()) {
-                    /*Если элемент не поле, то это файл и из него можно прочитать весь входной поток
-                    и записать его в файл или напрямую в базу данных.*/
+                    //если это файл, то
                     File file = new File(folder + File.separator + item.getName());
                     try (FileOutputStream out = new FileOutputStream(file)) {
                         out.write(item.getInputStream().readAllBytes());
                     }
-                }
-                else {
+                } else {
 //                    если это поле, то
                     if ("name".equals(item.getFieldName())) {
                         name = item.getString();
@@ -86,22 +92,34 @@ public class UploadSomethingServlet extends HttpServlet {
         } catch (FileUploadException e) {
             e.printStackTrace();
         }
-        //переходим в метод doGet()
         doGet(req, resp);
     }
 
-    //метод определения расширения файла
+    /**
+     * Метод определения расширения файла.
+     * Если в имени файла есть точка и она не является первым символом
+     * в названии файла, то вырезаем все знаки после последней точки в
+     * названии файла, то есть ХХХХХ.txt -> txt
+     * В противном случае возвращаем заглушку "", то есть расширение не найдено.
+     *
+     * @param file файл
+     * @return строковое представление расширения.
+     * Если расширения нет, то вернется ничего "".
+     */
     private static String getFileExtension(File file) {
         String fileName = file.getName();
-        // если в имени файла есть точка и она не является первым символом в названии файла
         if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
-            // то вырезаем все знаки после последней точки в названии файла, то есть ХХХХХ.txt -> txt
             return fileName.substring(fileName.lastIndexOf(".") + 1);
-            // в противном случае возвращаем заглушку, то есть расширение не найдено
         else return "";
     }
 
-    //метод извлекающий имя файла
+    /**
+     * Метод извлекающий имя файла
+     *
+     * @param part парта, пришедшая из формы.
+     * @return строковое представление имени файла.
+     * Если не получится получить, то вернет null.
+     */
     private String extractFileName(Part part) {
         // form-data; name="file"; filename="C:\file1.zip"
         // form-data; name="file"; filename="C:\Note\file2.zip"

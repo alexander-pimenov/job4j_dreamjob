@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/*
+/**
  * Класс Store - хранилище вакансий.
  */
 public class MemStore implements Store {
@@ -33,63 +33,77 @@ public class MemStore implements Store {
         return INST;
     }
 
-    /*Метод поиска всех вакансий в хранилище.*/
+    /**
+     * Метод поиска всех вакансий в хранилище.
+     */
     @Override
     public Collection<Post> findAllPosts() {
         return this.posts.values();
     }
 
-    /*Метод поиска всех кандидатов в хранилище.*/
+    /**
+     * Метод поиска всех кандидатов в хранилище.
+     */
     @Override
     public Collection<Candidate> findAllCandidates() {
         return this.candidates.values();
     }
 
-    /*Метод добавления в хранилище вакансий.*/
+    /**
+     * Метод добавления в хранилище вакансий.
+     */
     @Override
     public void savePost(Post post) {
         if (post.getId() == 0) {
             post.setId(postId.incrementAndGet());
         }
-//        System.out.println("Вакансия: " + post);
-//        System.out.println("Вакансия Id: " + post.getId());
-//        System.out.println("Вакансия Name: " + post.getName());
-//        System.out.println("Вакансия Description: " + post.getDescription());
-
         posts.put(post.getId(), post);
     }
 
-    /*Поиск вакансии по Id*/
+    /**
+     * Метод поиска вакансии по Id.
+     */
     @Override
     public Post findPostById(int id) {
         return posts.get(id);
     }
 
-    /*Метод добавления в хранилище кандидатов.*/
+    /**
+     * Метод добавления в хранилище кандидатов.
+     */
     @Override
     public Candidate saveCandidate(Candidate candidate) {
         if (candidate.getId() == 0) {
             candidate.setId(candidateId.incrementAndGet());
         }
-//        System.out.println("Кандидат: " + candidate);
-//        System.out.println("Кандидат Id: " + candidate.getId());
-//        System.out.println("Кандидат Name: " + candidate.getName());
-
         candidates.put(candidate.getId(), candidate);
         return candidates.get(candidate.getId());
     }
 
-    /*Поиск кандидата по Id*/
+    /**
+     * Метод поиска кандидата по Id
+     */
     @Override
     public Candidate findCandidateById(int id) {
         return candidates.get(id);
     }
 
+    /**
+     * Метод удаления кандидата по его id.
+     *
+     * @param id id кандидата.
+     */
     @Override
     public void deleteCandidate(int id) {
         candidates.remove(id);
     }
 
+    /**
+     * Метод сохранения фото кандидата.
+     * (Не реализован)
+     *
+     * @param photoId id фото кандидата.
+     */
     @Override
     public void savePhoto(int photoId) {
         System.out.println("Метод не реализован");

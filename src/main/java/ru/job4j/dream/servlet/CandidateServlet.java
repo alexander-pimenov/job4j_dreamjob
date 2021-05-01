@@ -24,8 +24,12 @@ import java.util.Objects;
 
 public class CandidateServlet extends HttpServlet {
 
-    /*Перенаправим в теле метода запрос в candidates.jsp
-     * и загрузим в request список кандидатов*/
+    /**
+     * Метод обрабатывающий get запросы от клиента.
+     * Загружает в request список кандидатов, полученных из базы данных
+     * и передает их клиенту в атрибуте с именем candidates.
+     * Сточка req.getRequestDispatcher(...) перенаправляет запрос в candidates.jsp
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -36,9 +40,25 @@ public class CandidateServlet extends HttpServlet {
         Collection<Candidate> allCandidates = store.findAllCandidates();
         req.setAttribute("candidates", allCandidates);
         req.getRequestDispatcher("candidate/candidates.jsp").forward(req, resp);
-
     }
 
+    /**
+     * Метод обрабатывающий post запросы от клиента.
+     * Создаем фабрику DiskFileItemFactory, по которой можем понять,
+     * какие данные в запросе.
+     * Устанавливается временная директория. Создается загрузчик ServletFileUpload.
+     * Данные, пришедшие из формы, могут быть полями или файлами.
+     * Получаем список всех данных в запросе, загрузчиком upload парсим
+     * request, чтобы взять FileItem.
+     * Для сохранения данных используем директорию "c:/images".
+     * Проверяем элемент FileItem является он полем или файлом.
+     * Если это файл, то загружаем его в папку "c:/images", также можно
+     * этот файл записывать и в базу данных, если нужно.
+     * Если это поле, то берем у поля параметр name, получаем с помощью метода
+     * getString() его строковое значение, это будет имя кандидата
+     * и сохраняем нового кандидата в базу данных.
+     * В конце метода делаем переадресацию на candidates.do
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -53,32 +73,21 @@ public class CandidateServlet extends HttpServlet {
 
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletContext servletContext = this.getServletConfig().getServletContext();
-        //Устанавливаем временную директорию
         File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
         factory.setRepository(repository);
-        //Создаем загрузчик
         ServletFileUpload upload = new ServletFileUpload(factory);
         try {
-            //Получаем список всех данных в запросе,
-            // парсит request чтобы взять FileItem
             List<FileItem> formItems = upload.parseRequest(req);
             File folder = new File("c:\\images\\");
             if (!folder.exists()) {
                 folder.mkdir();
             }
             for (FileItem item : formItems) {
-                //Элемент является полем?
-                //Если нет, то это файл и его загружаем
                 if (!item.isFormField()) {
                     //удалим фото кандидата при перезаписи или удалении кандидата
                     Arrays.stream(Objects.requireNonNull(folder.listFiles()))
                             .filter(file -> FilenameUtils.getBaseName(file.getName()).equals(req.getParameter("id")))
                             .findAny().ifPresent(File::delete); // if file with this name is exist - delete it, because it's update
-
-                    /*Если элемент не поле, то это файл и из него можно прочитать
-                     * весь входной поток и записать его в файл или напрямую в
-                     * базу данных.*/
-                    //сохраняет файл на сервере в папке c:/images
 
                     File file = new File(folder + File.separator
                             + candidateId
@@ -89,7 +98,6 @@ public class CandidateServlet extends HttpServlet {
                         out.write(item.getInputStream().readAllBytes());
                     }
                 } else {
-//                    если это поле, то
                     if ("name".equals(item.getFieldName())) {
                         name = item.getString();
                     }

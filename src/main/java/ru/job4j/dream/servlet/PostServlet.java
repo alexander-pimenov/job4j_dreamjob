@@ -13,8 +13,12 @@ import java.util.Collection;
 
 public class PostServlet extends HttpServlet {
 
-    /*Перенаправим в теле метода запрос в posts.jsp
-     * И загружаем в request список вакансий*/
+    /**
+     * Метод обрабатывающий get запросы от клиента.
+     * Загружает в request список вакансий, полученных из базы данных
+     * и передает их клиенту в атрибуте с именем posts.
+     * Сточка req.getRequestDispatcher(...) перенаправляет запрос в posts.jsp
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -26,6 +30,13 @@ public class PostServlet extends HttpServlet {
         req.getRequestDispatcher("post/posts.jsp").forward(req, resp);
     }
 
+    /**
+     * Метод обрабатывающий post запросы от клиента.
+     * Из формы получаем с запросом параметры: id, name, description.
+     * Получаем их значения, создаем новую вакансию с этими параметрами
+     * и сохраняем её в базу данных.
+     * В конце метода делаем переадресацию на posts.do
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");

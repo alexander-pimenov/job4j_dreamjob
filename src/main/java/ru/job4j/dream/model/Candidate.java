@@ -2,7 +2,7 @@ package ru.job4j.dream.model;
 
 import java.util.Objects;
 
-/*
+/**
  * Класс Candidate - модель описывающая кандидата.
  */
 public class Candidate {
@@ -31,7 +31,6 @@ public class Candidate {
     public void setPhotoId(Integer photoId) {
         this.photoId = photoId;
     }
-
 
 
     public int getId() {

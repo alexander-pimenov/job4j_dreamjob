@@ -3,7 +3,7 @@ package ru.job4j.dream.model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-/*
+/**
  * Класс Post - модель описывающую вакансию.
  */
 public class Post {

@@ -2,6 +2,9 @@ package ru.job4j.dream.model;
 
 import java.util.Objects;
 
+/**
+ * Класс Photo - модель описывающая фото кандидата.
+ */
 public class Photo {
     private int id;
     private String name;
